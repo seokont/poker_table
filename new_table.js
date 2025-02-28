@@ -1,6 +1,50 @@
 // Ожидаем загрузки всего DOM-дерева
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("DOM полностью загружен и разобран");
+  let newTree = document.getElementById("new_tree");
+  if (!newTree) {
+    // Создаём основной контейнер
+    newTree = document.createElement("div");
+    newTree.id = "new_tree";
+    newTree.style.position = "absolute";
+    newTree.style.top = "0";
+    newTree.style.left = "0";
+    newTree.style.width = "100%";
+    newTree.style.height = "100%";
+    newTree.style.background = "rgba(255, 255, 255, 0.5)";
+    newTree.style.zIndex = "100";
+    newTree.style.display = "flex";
+    newTree.style.flexDirection = "column";
+    newTree.style.gap = "10px";
+    newTree.style.alignItems = "center";
+    newTree.style.justifyContent = "center";
+
+    // Создаём кнопки
+    const buttons = [
+      { text: "Новая OK", target: "ok" },
+      { text: "Cancel", target: "cancel" },
+      { text: "Create", target: "li_createbtn" },
+      { text: "Tabs", target: "LobbyTabs" },
+      { text: "Game", target: "grid_data" },
+    ];
+
+    buttons.forEach(({ text, target }) => {
+      const button = document.createElement("button");
+      button.textContent = text;
+      button.setAttribute("data-target", target);
+      button.addEventListener("click", () => {
+        console.log(`Клик по кнопке: ${text} (data-target=${target})`);
+      });
+      newTree.appendChild(button);
+    });
+
+    // Создаём #new_button внутри #new_tree
+    const newButtonContainer = document.createElement("div");
+    newButtonContainer.id = "new_button";
+    newTree.appendChild(newButtonContainer);
+
+    // Добавляем всю структуру в body
+    document.body.appendChild(newTree);
+  }
 
   // 🔹 Функция для отслеживания изменений в DOM
   function observeChanges(targetNode) {
@@ -114,7 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
       hiddenElements.forEach((el, index) => {
         if (!newTree.querySelector(`[data-index='${index}']`)) {
           const button = document.createElement("button");
-          button.textContent = `Нажать кнопку ${index + 1}`;
+          button.textContent = `Нажать кнопку еще ${index + 1}`;
           button.style.display = "block";
           button.style.margin = "5px";
           button.dataset.index = index;
