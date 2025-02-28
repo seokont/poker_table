@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       let newTree = document.getElementById("new_button");
       if (!newTree) {
-        console.warn("❌ Ошибка: `#new_button` не найден в DOM.");
+        console.warn("❌ Ошибка: `#new_button` не найден в DOM ghhgjhjhj.");
         return;
       }
 
